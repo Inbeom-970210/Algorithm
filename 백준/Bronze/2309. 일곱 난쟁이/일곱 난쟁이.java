@@ -1,45 +1,44 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		int[] arr = new int[9];
-		int sum = 0;
-		for(int i = 0; i < 9; i++) {
-			arr[i] = sc.nextInt();
-			sum += arr[i];
-		}
-		
-		int index1 = 0, index2 = 0;
-		for(int i = 0; i < 9; i++) {
-			for(int j = 0; j < 9 && j != i; j++) {
-				if(sum - arr[i] - arr[j] == 100) {
-					index1 = i;
-					index2 = j;
-				}
-			}
-		}
-		
-		arr[index1] = 100;
-		arr[index2] = 100;
-		int minIndex = 0;
-		
-		for(int i = 0, ram = 0; i < 9; i++) {
-			for(int j = i + 1; j < 9; j++) {
-				if(arr[minIndex] > arr[j]) {
-					minIndex = j;
-				}
-			}
-			
-			ram = arr[i];
-			arr[i] = arr[minIndex];
-			arr[minIndex] = ram;
-			minIndex = i + 1;
-		}
-		
-		for(int i = 0; i < 7; i++) {
-			System.out.println(arr[i]);
-		}
-	}
+    static boolean flag;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int[] res = new int[7];
+        flag = false;
+        int[] arr = new int[9];
+        boolean[] check = new boolean[9];
+        for(int i = 0; i < 9; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
+        }
+
+        dfs(0, 0, res, arr, check);
+    }
+
+    static void dfs(int depth, int sum, int[] res, int[] arr, boolean[] check) {
+        if(flag) return;
+        if(depth == 7) {
+            if(sum == 100) {
+                flag = true;
+                Arrays.sort(res);
+                for(int i = 0; i < 7; i++) {
+                    System.out.println(res[i]);
+                }
+            }
+
+            return;
+        }
+
+        for(int i = 0; i < 9; i++) {
+            if(check[i]) continue;
+            check[i] = true;
+            res[depth] = arr[i];
+            dfs(depth + 1, sum + arr[i], res, arr, check);
+            check[i] = false;
+        }
+    }
 }

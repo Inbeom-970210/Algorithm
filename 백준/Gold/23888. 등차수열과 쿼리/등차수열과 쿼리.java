@@ -22,23 +22,17 @@ public class Main {
         for(int query = 0; query < q; query++) {
             st = new StringTokenizer(br.readLine());
             String type = st.nextToken();
-            int l = Integer.parseInt(st.nextToken());
-            int r = Integer.parseInt(st.nextToken());
+            long l = Integer.parseInt(st.nextToken());
+            long r = Integer.parseInt(st.nextToken());
             long res = 0;
 
             switch (type) {
                 case "1":
-                    res = (r - l + 1) * a + (r - l + 1) * (l  + r - 2) * d / 2;
+                    res = (r - l + 1) * (2 * a + (l + r - 2) * d) / 2;
                     break;
                 case "2":
-                    if(l == r) {
-                        res = a + (l - 1) * d;
-                        break;
-                    }
-                    res = GCD(a + (l - 1) * d, a + l * d);
-                    for(int i = l + 2; i <= r; i++) {
-                        res = GCD(res, a + (i - 1) * d);
-                    }
+                    if(l == r) res = a + (l - 1) * d;
+                    else res = GCD(a, d);
                     break;
             }
 
@@ -51,8 +45,8 @@ public class Main {
     }
 
     // 등차수열에서 GCD를 구하는 메서드
-    private static long GCD(long num1, long num2) {
-        if(num2 % num1 == 0) return num1;
+    private static long GCD(int num1, int num2) {
+        if(num1 == 0) return num2;
         return GCD(num2 % num1, num1);
     }
 }

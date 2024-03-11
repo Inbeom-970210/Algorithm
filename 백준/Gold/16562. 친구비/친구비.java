@@ -52,12 +52,12 @@ public class Main {
 
         if (high1 == high2) return;
 
-        if (costs[high1] < costs[high2]) friends[high2] = friends[high1];
-        else friends[high1] = friends[high2];
+        if (costs[high1] < costs[high2]) friends[high2] = high1;
+        else friends[high1] = high2;
     }
 
     private static int find(int idx) {
-        if (friends[idx] == idx) return friends[idx];
+        if (friends[idx] == idx) return idx;
         return find(friends[idx]);
     }
 

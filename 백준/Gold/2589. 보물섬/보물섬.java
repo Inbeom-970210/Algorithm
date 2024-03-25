@@ -21,7 +21,6 @@ public class Main {
         row = Integer.parseInt(st.nextToken());
         col = Integer.parseInt(st.nextToken());
         map = new char[row][col];
-        checked = new boolean[row][col];
         for (int i = 0; i < row; ++i) {
             map[i] = br.readLine().toCharArray();
         }
@@ -32,9 +31,6 @@ public class Main {
             for (int c = 0; c < col; ++c) {
                 if (map[r][c] == 'W') continue;
                 bfs(r, c);
-                for (int i = 0; i < row; ++i) {
-                    Arrays.fill(checked[i], false);
-                }
             }
         }
 
@@ -44,6 +40,7 @@ public class Main {
 
     private static void bfs(int r, int c) {
         int max = 0;
+        checked = new boolean[row][col];
 
         // 현재 위치
         queue.offer(new int[]{r, c, 0});

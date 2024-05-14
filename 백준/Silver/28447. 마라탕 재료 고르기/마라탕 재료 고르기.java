@@ -33,10 +33,9 @@ public class Main {
         if (depth == K) {
             int sum = 0;
             for (int r = 1; r <= N; r++) {
+                if (!visited[r]) continue;
                 for (int c = 1; c <= N; c++) {
-                    if (visited[r] && visited[c] && r != c) {
-                        sum += C[r][c];
-                    }
+                    if (visited[c]) sum += C[r][c];
                 }
             }
             sum /= 2;

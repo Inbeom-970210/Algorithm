@@ -24,12 +24,12 @@ public class Main {
         }
 
         res = Integer.MIN_VALUE;
-        function(0);
+        function(0, 1);
 
         System.out.print(res);
     }
 
-    private static void function(int depth) {
+    private static void function(int depth, int at) {
         if (depth == K) {
             int sum = 0;
             for (int r = 1; r <= N; r++) {
@@ -43,10 +43,9 @@ public class Main {
             return;
         }
 
-        for (int i = 1; i <= N; i++) {
-            if (visited[i]) continue;
+        for (int i = at; i <= N; i++) {
             visited[i] = true;
-            function(depth + 1);
+            function(depth + 1, i + 1);
             visited[i] = false;
         }
     }

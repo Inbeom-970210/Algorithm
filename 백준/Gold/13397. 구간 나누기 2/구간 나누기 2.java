@@ -36,9 +36,9 @@ public class Main {
     // 이를 M과 비교하여 <=면 조건을 만족, 아니면 조건을 만족하지 못한다.
     // 반복문을 통과했을 때 left, right는 조건을 만족하는 최솟값이다.
     private static int calculAnswer() {
-        while (left < right) {
+        while (left <= right) {
             int mid = (left + right) / 2;
-            if (calculSection(mid) <= M) right = mid;
+            if (calculSection(mid) <= M) right = mid - 1;
             else left = mid + 1;
         }
 

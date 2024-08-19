@@ -1,0 +1,4 @@
+-- 코드를 입력하세요
+SELECT ins.ANIMAL_ID, ins.NAME
+FROM ANIMAL_INS ins
+ORDER BY ins.ANIMAL_ID;

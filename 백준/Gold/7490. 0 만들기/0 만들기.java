@@ -5,7 +5,8 @@ import java.io.InputStreamReader;
 public class Main {
     static StringBuilder sb;
     static int N;
-    static String sign;
+    static char[] str;
+    static char[] ops = {' ', '+', '-'};
 
     public static void main(String[] args) throws IOException {
         sb = new StringBuilder();
@@ -14,45 +15,33 @@ public class Main {
 
         for (int test = 0; test < T; test++) {
             N = Integer.parseInt(br.readLine());
-            make0(1, 0, 0, "+", "");
+            str = new char[N * 2 - 1];
+            str[0] = '1';
+            dfs(1, 0, 1, 1);
             sb.append("\n");
         }
 
         System.out.print(sb);
     }
 
-    private static void make0(int depth, int sum, int temp, String preSign, String expression) {
-        int intPreSign = signToInt(preSign);
-        int intSign = signToInt(sign);
-
+    private static void dfs(int num, int sum, int op, int depth) {
         if (depth == N) {
-            if (intPreSign == 0) {
-                temp += depth;
-                sum += temp * intSign;
-            } else {
-                sum += depth * intPreSign;
-            }
-
-            if (sum == 0) sb.append(expression.replace("+1", "1")).append(preSign).append(depth).append("\n");
+            sum += (num * op);
+            if (sum == 0) sb.append(str).append("\n");
             return;
         }
 
-        if (intPreSign == 0) {
-            make0(depth + 1, sum, (temp + depth) * 10, " ", expression + preSign + depth);
-            make0(depth + 1, sum + (temp + depth) * intSign, 0, "+", expression + preSign + depth);
-            make0(depth + 1, sum + (temp + depth) * intSign, 0, "-", expression + preSign + depth);
-        } else {
-            sign = preSign;
-            make0(depth + 1, sum, depth * 10, " ", expression + preSign + depth);
-            make0(depth + 1, sum + (depth * intPreSign), temp, "+", expression + preSign + depth);
-            make0(depth + 1, sum + (depth * intPreSign), temp, "-", expression + preSign + depth);
+        for (char c : ops) {
+            str[depth * 2 - 1] = c;
+            str[depth * 2] = Character.forDigit(depth + 1, 10);
+
+            if (c == ' ') {
+                dfs(num * 10 + (depth + 1), sum, op, depth + 1);
+            } else if (c == '+') {
+                dfs(depth + 1, sum + (num * op), 1, depth + 1);
+            } else {
+                dfs(depth + 1, sum + (num * op), -1, depth + 1);
+            }
         }
     }
-
-    private static int signToInt(String sign) {
-        if ("+".equals(sign)) return 1;
-        else if ("-".equals(sign)) return -1;
-        else return 0;
-    }
-
 }

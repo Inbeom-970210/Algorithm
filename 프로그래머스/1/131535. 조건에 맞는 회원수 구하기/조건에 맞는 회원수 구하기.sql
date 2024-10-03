@@ -1,0 +1,5 @@
+-- 코드를 입력하세요
+SELECT count(*) as USERS
+FROM USER_INFO u
+WHERE YEAR(u.JOINED) = 2021
+    AND u.AGE BETWEEN 20 and 29;

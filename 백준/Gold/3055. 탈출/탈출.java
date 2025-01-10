@@ -13,7 +13,6 @@ public class Main {
         int C = Integer.parseInt(st.nextToken());
         int[][] map = new int[R][C];
         Queue<int[]> queue = new LinkedList<>();
-        int cnt = 0;
         int locationR = 0;
         int locationC = 0;
         for (int r = 0; r < R; r++) {
@@ -28,7 +27,6 @@ public class Main {
                         map[r][c] = 4;
                         locationR = r;
                         locationC = c;
-                        cnt++;
                         break;
                     case "X":
                         map[r][c] = 3;
@@ -36,7 +34,6 @@ public class Main {
                     case "*":
                         map[r][c] = 2;
                         queue.offer(new int[]{r, c});
-                        cnt++;
                         break;
                     case ".":
                         map[r][c] = 0;

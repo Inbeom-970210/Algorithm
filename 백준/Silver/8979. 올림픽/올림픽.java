@@ -27,8 +27,8 @@ public class Main {
                 if (o1[2] > o2[2]) return -1;
                 else if (o1[2] < o2[2]) return 1;
                 else {
-                    if (o1[3] < o2[3]) return -1;
-                    else return 1;
+                    if (o1[3] < o2[3]) return 1;
+                    else return -1;
                 }
             }
         });

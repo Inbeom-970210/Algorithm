@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -11,44 +12,22 @@ public class Main {
 
     int N = Integer.parseInt(st.nextToken());
     int K = Integer.parseInt(st.nextToken());
-    int[] dolls = new int[N];
+    ArrayList<Integer> locations = new ArrayList<>();
     st = new StringTokenizer(br.readLine());
     for (int i = 0; i < N; i++) {
-      dolls[i] = Integer.parseInt(st.nextToken());
-    }
-
-    int setSize = -1;
-    int left = 1;
-    int right = N;
-    while (left <= right) {
-      int mid = left + (right - left) / 2;
-      int cnt = 0;
-
-      for (int i = 0; i < mid; i++) {
-        if (1 == dolls[i]) {
-          cnt++;
-        }
-      }
-
-      int idx = mid;
-      while (cnt < K && idx < N) {
-        if (1 == dolls[idx]) {
-          cnt++;
-        }
-        if (1 == dolls[idx - mid]) {
-          cnt--;
-        }
-        idx++;
-      }
-
-      if (cnt >= K) {
-        right = mid - 1;
-        setSize = mid;
-      } else {
-        left = mid + 1;
+      if ("1".equals(st.nextToken())) {
+        locations.add(i);
       }
     }
 
-    System.out.print(setSize);
+    if (locations.size() < K) {
+      System.out.print("-1");
+    } else {
+      int min = Integer.MAX_VALUE;
+      for (int i = K - 1; i < locations.size(); i++) {
+        min = Math.min(locations.get(i) - locations.get(i - K + 1) + 1, min);
+      }
+      System.out.print(min);
+    }
   }
 }
